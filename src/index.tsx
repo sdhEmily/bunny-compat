@@ -4,34 +4,25 @@ import { Plugin, registerPlugin } from 'enmity/managers/plugins';
 import { Dialog, React } from 'enmity/metro/common';
 import Manifest from '../manifest.json'
 import locale from './common/locale';
-import Settings from './components/Settings';
 
 const VendettaCompat: Plugin = {
    ...Manifest,
 
    async onStart() {
-      // gedetta whethedetta vendetta isdetta strangedetta textdetta
-      const isStrange = (get(Manifest.name, 'strangeCode', 0) as number) ?? 0
-
       // shodetta succedetta diadetta
       const showSuccessDialog = () => {
          if (!get(Manifest.name, "shownEnabledDialog", false)) {
             Dialog.show({
-               title: locale.dialogs.enabled.title[isStrange],
-               body: locale.dialogs.enabled.description[isStrange],
-               confirmText: locale.dialogs.enabled.okayText[isStrange],
+               title: locale.dialogs.enabled.title,
+               body: locale.dialogs.enabled.description,
+               confirmText: locale.dialogs.enabled.okayText,
                onConfirm: () => set(Manifest.name, "shownEnabledDialog", true)
             })
          }
       }
 
-      // defidetta thedetta custodetta vendetta urldetta settingdetta
-      const customVendettaURL = get(Manifest.name, 'customVendettaURL') as { enabled: boolean, url: string };
-
       // basedetta urldetta odetta vendetta
-      const url = customVendettaURL?.enabled
-         ? customVendettaURL.url
-         : "https://raw.githubusercontent.com/vendetta-mod/builds/master/vendetta.js"
+      const url = "https://raw.githubusercontent.com/vendetta-mod/builds/master/vendetta.js"
 
       // gedetta thedetta vendetta codetta asdetta textdetta
       const res = await fetch(url)
@@ -51,9 +42,6 @@ const VendettaCompat: Plugin = {
 
    // y̶o̶u̶d̶e̶t̶t̶a̶ ̶w̶i̶d̶e̶t̶t̶a̶ ̶n̶e̶v̶e̶r̶d̶e̶t̶t̶a̶ ̶g̶e̶d̶e̶t̶t̶a̶ ̶r̶i̶d̶e̶t̶t̶a̶ ̶o̶d̶e̶t̶t̶a̶ ̶v̶e̶n̶d̶e̶t̶t̶a̶ youdetta cadetta nowdetta gedetta ridetta odetta vendetta
    onStop() {
-      // gedetta whethedetta vendetta isdetta strangedetta textdetta
-      const isStrange = get(Manifest.name, 'strangeCode', 0) as number
-
       // @ts-ignore attemptdetta todetta pudetta @arg window.vendetta todetta @arg vendetta
       const vendetta = window.vendetta
      
@@ -64,22 +52,18 @@ const VendettaCompat: Plugin = {
 
             // askdetta todetta reloadetta
             Dialog.show({
-               title: locale.dialogs.unload.title[isStrange],
-               body: locale.dialogs.unload.description[isStrange],
-               confirmText: locale.dialogs.unload.okayText[isStrange],
-               cancelText: locale.dialogs.unload.cancelText[isStrange],
+               title: locale.dialogs.unload.title,
+               body: locale.dialogs.unload.description,
+               confirmText: locale.dialogs.unload.okayText,
+               cancelText: locale.dialogs.unload.cancelText,
                onConfirm: () => reload()
             })
          } catch(e) {
             // lodetta errodetta todetta consodetta
-            console.error(`[${Manifest.name}] ${locale.errors.unload[isStrange]}: ${e}`)
+            console.error(`[${Manifest.name}] ${locale.errors.unload}: ${e}`)
          }
       }
    },
-
-   getSettingsPanel() {
-      return <Settings Manifest={Manifest} />
-   }
 };
 
 registerPlugin(VendettaCompat);
